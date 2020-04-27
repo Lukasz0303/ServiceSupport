@@ -1,4 +1,4 @@
-namespace ServiceSupport.Infrastructure.Services
+namespace ServiceSupport.Infrastructure.Services.UserGroup
 {
     public interface IEncrypter
     {

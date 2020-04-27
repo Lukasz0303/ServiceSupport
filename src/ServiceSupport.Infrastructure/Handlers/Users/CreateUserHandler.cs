@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using ServiceSupport.Infrastructure.Commands;
 using ServiceSupport.Infrastructure.Commands.Users;
 using ServiceSupport.Infrastructure.Services;
+using ServiceSupport.Infrastructure.Services.UserGroup;
 
 namespace ServiceSupport.Infrastructure.Handlers.Users
 {

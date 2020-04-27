@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 using System.Text;
 using ServiceSupport.Infrastructure.Extensions;
 
-namespace ServiceSupport.Infrastructure.Services
+namespace ServiceSupport.Infrastructure.Services.UserGroup
 {
     public class Encrypter : IEncrypter
     {

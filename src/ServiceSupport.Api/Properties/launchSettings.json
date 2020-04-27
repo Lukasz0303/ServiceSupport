@@ -19,7 +19,7 @@
     "ServiceSupport.Api": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:5000/api/values",
+      "launchUrl": "http://localhost:5000/users",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

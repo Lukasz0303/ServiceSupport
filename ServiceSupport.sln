@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceSupport.Tests", "tests\ServiceSupport.Tests\ServiceSupport.Tests.csproj", "{27B9351B-D762-41FC-B313-9796516C1714}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceSupport.Tests.EndToEnd", "tests\ServiceSupport.Tests\ServiceSupport.Tests.EndToEnd.csproj", "{27B9351B-D762-41FC-B313-9796516C1714}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceSupport.Tests.EndToEnd", "tests\ServiceSupport.Tests.EndToEnd\ServiceSupport.Tests.EndToEnd.csproj", "{0AE81F84-F8EF-4F61-A915-733100EB6B16}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceSupport.Tests", "tests\ServiceSupport.Tests.EndToEnd\ServiceSupport.Tests.csproj", "{0AE81F84-F8EF-4F61-A915-733100EB6B16}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceSupport.Api", "src\ServiceSupport.Api\ServiceSupport.Api.csproj", "{C24966EC-E0F6-4EE7-B183-351D7D73CE8E}"
 EndProject

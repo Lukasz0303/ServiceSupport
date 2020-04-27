@@ -7,7 +7,7 @@ using ServiceSupport.Core.Repositories;
 using ServiceSupport.Infrastructure.DTO;
 using ServiceSupport.Infrastructure.Exceptions;
 
-namespace ServiceSupport.Infrastructure.Services
+namespace ServiceSupport.Infrastructure.Services.UserGroup
 {
     public class UserService : IUserService
     { 

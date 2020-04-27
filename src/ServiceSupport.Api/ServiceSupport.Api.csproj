@@ -13,7 +13,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Update="nlog.config">
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToPublishDirectory>ServiceSupportNewest</CopyToPublishDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>

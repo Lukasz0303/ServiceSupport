@@ -5,13 +5,15 @@ using System.Threading.Tasks;
 using ServiceSupport.Core.Domain;
 using ServiceSupport.Core.Repositories;
 
-namespace ServiceSupport.Infrastructure.Repositories
+namespace ServiceSupport.Infrastructure.Repositories.InMemory
 {
 	  public class InMemoryUserRepository : IUserRepository
 	  {
 		private static readonly ISet<User> _users = new HashSet<User>() 
 		{
-			new User(new Guid(),"l.zzzielinski@gmail.com","lukasz","admin","test","fgdgdfg")
+			new User(Guid.NewGuid(),"l.zzzielinski@gmail.com","lukasz","admin","test","fgdgdfg"),
+			new User(Guid.NewGuid(),"m.kowalski@gmail.com","marek","serviceman","test","fgdgdfg"),
+			new User(Guid.NewGuid(),"p.jankowski@gmail.com","pawel","servicecoordinator","test","fgdgdfg"),
 		};
 
 		public async Task<User> GetAsync(Guid id)

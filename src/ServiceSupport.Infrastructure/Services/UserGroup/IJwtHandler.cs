@@ -1,7 +1,7 @@
 using System;
 using ServiceSupport.Infrastructure.DTO;
 
-namespace ServiceSupport.Infrastructure.Services
+namespace ServiceSupport.Infrastructure.Services.UserGroup
 {
     public interface IJwtHandler
     {

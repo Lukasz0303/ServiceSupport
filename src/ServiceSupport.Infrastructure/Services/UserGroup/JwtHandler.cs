@@ -7,7 +7,7 @@ using ServiceSupport.Infrastructure.DTO;
 using ServiceSupport.Infrastructure.Extensions;
 using ServiceSupport.Infrastructure.Settings;
 
-namespace ServiceSupport.Infrastructure.Services
+namespace ServiceSupport.Infrastructure.Services.UserGroup
 {
     public class JwtHandler : IJwtHandler
     {

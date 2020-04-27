@@ -1,6 +1,7 @@
 using System.Reflection;
 using Autofac;
 using ServiceSupport.Infrastructure.Services;
+using ServiceSupport.Infrastructure.Services.UserGroup;
 
 namespace ServiceSupport.Infrastructure.IoC.Modules
 {

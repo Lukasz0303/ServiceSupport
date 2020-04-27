@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceSupport.Infrastructure.Commands;
 using ServiceSupport.Infrastructure.Commands.Users;
 using ServiceSupport.Infrastructure.Services;
+using ServiceSupport.Infrastructure.Services.UserGroup;
 
 namespace ServiceSupport.Api.Controllers
 {
