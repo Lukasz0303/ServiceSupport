@@ -1,6 +1,7 @@
 ﻿using ServiceSupport.Core.Exceptions;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -30,6 +31,17 @@ namespace ServiceSupport.Core.Domain
             SetSID(SID);
             SetPhone(phone);
             Created = DateTime.UtcNow;
+        }
+
+        public void AddShopTime(DayOfWeek day, string startTime, string endTime)
+        {
+            var shopTime = ShopTime.SingleOrDefault(x => x.Day == day);
+            if (shopTime != null)
+            {
+                throw new DomainException(ErrorCodes.InvalidAddress, $"ShopTime with day: '{day}' already exists for shop: {SID}:{Address}.");
+            }
+            _shopTime.Add(new ShopTime(day, startTime, endTime));
+            Updated = DateTime.UtcNow;
         }
 
         public void SetAddress(string address)
@@ -74,6 +86,7 @@ namespace ServiceSupport.Core.Domain
             this.SID = SID;
             Updated = DateTime.UtcNow;
         }
+
         public void SetPhone(string phone)
         {
             if (!PhoneRegex.IsMatch(phone))
@@ -87,6 +100,16 @@ namespace ServiceSupport.Core.Domain
 
             this.Phone = phone;
             Updated = DateTime.UtcNow;
+        }
+
+        public bool IsOpen(int minutes)
+        {
+            var shopTime = this.ShopTime.FirstOrDefault(x => x.Day == DateTime.Now.DayOfWeek);
+            if(shopTime!=null)
+            {
+                return DateTime.Now.AddMinutes(-minutes)> shopTime.StartTime ? true : false;
+            }
+            return false;
         }
     }
 }

@@ -10,5 +10,7 @@ namespace ServiceSupport.Infrastructure.Services.ShopGroup
     {
         Task<ShopDto> GetAsync(Guid id);
         Task<IEnumerable<ShopDto>> GetAllAsync();
+
+        Task AddShopTime(Guid id, DayOfWeek day, string startTime, string endTime);
     }
 }

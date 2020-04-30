@@ -10,6 +10,7 @@ namespace ServiceSupport.Core.Repositories
     {
         Task<Shop> GetAsync(Guid id);
         Task<IEnumerable<Shop>> GetAllAsync();
+        Task AddShopTime(Guid id, DayOfWeek day, string startTime, string endTime);
         Task AddAsync(Shop shop);
         Task UpdateAsync(Shop shop);
         Task RemoveAsync(Guid id);

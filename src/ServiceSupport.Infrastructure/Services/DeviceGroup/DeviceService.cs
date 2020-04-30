@@ -19,12 +19,34 @@ namespace ServiceSupport.Infrastructure.Services.DeviceGroup
             _deviceRepository = deviceRepository;
             _mapper = mapper;
         }
-        public async Task<IEnumerable<DeviceDto>> GetAllAsync()
+
+        public async Task<DeviceDto> GetAsync(Guid id)
+        {
+            var device = await _deviceRepository.GetAsync(id);
+
+            return _mapper.Map<Device, DeviceDto>(device);
+        }
+
+        public async Task<IEnumerable<DeviceDto>> BrowseAsync()
         {
             var devices = await _deviceRepository.GetAllAsync();
 
             return _mapper.Map<IEnumerable<Device>, IEnumerable<DeviceDto>>(devices);
         }
+        public async Task<IEnumerable<DeviceDto>> GetAllInactiveAsync(int minutes)
+        {
+            var devices = await _deviceRepository.GetAllInactiveAsync(minutes);
+
+            return _mapper.Map<IEnumerable<Device>, IEnumerable<DeviceDto>>(devices);
+        }
+
+        public async Task<IEnumerable<DeviceDto>> GetAllNoDataAsync(int minutes)
+        {
+            var devices = await _deviceRepository.GetAllNoDataAsync(minutes);
+
+            return _mapper.Map<IEnumerable<Device>, IEnumerable<DeviceDto>>(devices);
+        }
+        
 
         public async Task<DeviceDto> GetAsync(string serialNumber)
         {

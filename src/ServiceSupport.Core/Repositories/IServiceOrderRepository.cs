@@ -8,9 +8,12 @@ namespace ServiceSupport.Core.Repositories
 {
     public interface IServiceOrderRepository : IRepository
     {
+        Task<IEnumerable<ServiceOrder>> GetAllAsync();
         Task<ServiceOrder> GetAsync(Guid id);
-        Task<IEnumerable<ServiceOrder>> GetAsyncPersonOrdering(Person person);
-        Task<IEnumerable<ServiceOrder>> GetAsyncServiceman(Person person);
+        Task<ServiceOrder> GetAsync(string id);
+        Task<IEnumerable<ServiceOrder>> GetAsyncPersonOrdering(string emailPersonOrdering);
+        Task<IEnumerable<ServiceOrder>> GetAsyncServiceman(string emailServiceman);
+        Task<IEnumerable<ServiceOrder>> GetAsyncNotassigned();
         Task AddAsync(ServiceOrder serviceOrder);
         Task UpdateAsync(ServiceOrder serviceOrder);
         Task RemoveAsync(Guid id);

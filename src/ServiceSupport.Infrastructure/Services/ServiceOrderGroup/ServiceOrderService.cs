@@ -20,6 +20,20 @@ namespace ServiceSupport.Infrastructure.Services.ServiceOrderGroup
             _mapper = mapper;
         }
 
+        public async Task<IEnumerable<ServiceOrderDto>> BrowseAsync()
+        {
+            var serviceOrders = await _serviceOrderRepository.GetAllAsync();
+
+            return _mapper.Map<IEnumerable<ServiceOrder>, IEnumerable<ServiceOrderDto>>(serviceOrders);
+        }
+
+        public async Task<IEnumerable<ServiceOrderDto>> GetAsyncNotassigned()
+        {
+            var serviceOrders = await _serviceOrderRepository.GetAsyncNotassigned();
+
+            return _mapper.Map<IEnumerable<ServiceOrder>, IEnumerable<ServiceOrderDto>>(serviceOrders);
+        }
+
         public async Task AddAsync(ServiceOrderDto serviceOrder)
         {
             await _serviceOrderRepository.AddAsync(_mapper.Map < ServiceOrderDto, ServiceOrder>( serviceOrder));
@@ -32,20 +46,32 @@ namespace ServiceSupport.Infrastructure.Services.ServiceOrderGroup
             return _mapper.Map<ServiceOrder, ServiceOrderDto>(serviceOrder);
         }
 
-        public async Task<IEnumerable<ServiceOrderDto>> GetAsyncPersonOrdering(PersonDto person)
+        public async Task<IEnumerable<ServiceOrderDto>> GetAsyncPersonOrdering(string emailPersonOrdering)
         {
             var serviceOrders = await _serviceOrderRepository.
-                GetAsyncPersonOrdering(_mapper.Map < PersonDto, Person > (person));
+                GetAsyncPersonOrdering(emailPersonOrdering);
 
             return _mapper.Map<IEnumerable<ServiceOrder>, IEnumerable<ServiceOrderDto>>(serviceOrders);
         }
 
-        public async Task<IEnumerable<ServiceOrderDto>> GetAsyncServiceman(PersonDto person)
+        public async Task<IEnumerable<ServiceOrderDto>> GetAsyncServiceman(string emailServiceman)
         {
             var serviceOrders = await _serviceOrderRepository.
-                GetAsyncServiceman(_mapper.Map<PersonDto, Person>(person));
+                GetAsyncServiceman(emailServiceman);
 
             return _mapper.Map<IEnumerable<ServiceOrder>, IEnumerable<ServiceOrderDto>>(serviceOrders);
+        }
+
+        public async Task SetServiceMan(string serviceOrderId, string name, string surname, string email, string phone)
+        {
+            var serviceOrder = await _serviceOrderRepository.GetAsync(serviceOrderId);
+            serviceOrder.SetServiceman(new Person(name, surname, email, phone));
+        }
+
+        public async Task AddServiceOrderDescription(string serviceOrderId, string name, string surname, string email, string phone, string title, string content,string isfinished)
+        {
+            var serviceOrder = await _serviceOrderRepository.GetAsync(serviceOrderId);
+            serviceOrder.AddServiceOrderDescription(title,content, new Person(name, surname, email, phone), isfinished);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace ServiceSupport.Core.Domain
         public string Title { get; protected set; }
         public string Content { get; protected set; }
         public Person Person { get; protected set; }
-        public DateTime Created { get; protected set; }
+        public DateTime Added { get; protected set; }
         protected ServiceOrderDescription()
         {
         }
@@ -18,15 +18,15 @@ namespace ServiceSupport.Core.Domain
         {
             SetContent(content);
             SetPerson(person);
-            Created = DateTime.UtcNow;
+            Added = DateTime.UtcNow;
         }
 
-        public ServiceOrderDescription(string content,string title, Person person)
+        public ServiceOrderDescription(string title, string content, Person person)
         {
             SetContent(content);
             SetTitle(title);
             SetPerson(person);
-            Created = DateTime.UtcNow;
+            Added = DateTime.UtcNow;
         }
 
         private void SetContent(string content)

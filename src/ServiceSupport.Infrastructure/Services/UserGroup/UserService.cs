@@ -22,6 +22,13 @@ namespace ServiceSupport.Infrastructure.Services.UserGroup
             _mapper = mapper;
         }
 
+        public async Task<UserDto> GetAsync(Guid id)
+        {
+            var user = await _userRepository.GetAsync(id);
+
+            return _mapper.Map<User, UserDto>(user);
+        }
+
         public async Task<UserDto> GetAsync(string email)
         {
             var user = await _userRepository.GetAsync(email);

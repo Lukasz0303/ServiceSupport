@@ -19,7 +19,7 @@
     "ServiceSupport.Api": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "http://localhost:5000/users",
+      "launchUrl": "http://localhost:5000/serviceorders",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

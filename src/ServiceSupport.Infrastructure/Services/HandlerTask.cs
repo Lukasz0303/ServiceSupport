@@ -10,7 +10,7 @@ namespace ServiceSupport.Infrastructure.Services
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
         private readonly IHandler _handler;
         private readonly Func<Task> _runAsync;
-        private Func<Task> _validateAsync;
+        private readonly Func<Task> _validateAsync;
         private Func<Task> _alwaysAsync;
         private Func<Task> _onSuccessAsync;
         private Func<Exception, Task> _onErrorAsync;

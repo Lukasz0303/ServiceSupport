@@ -9,5 +9,6 @@ namespace ServiceSupport.Infrastructure.DTO
         public string Title { get; set; }
         public string Content { get; set; }
         public PersonDto Person { get; set; }
+        public DateTime Added { get; set; }
     }
 }

@@ -75,5 +75,10 @@ namespace ServiceSupport.Core.Domain
             _serviceOrders.Add(new ServiceOrder(serviceOrderId, personOrdering, serviceman));
             Updated = DateTime.UtcNow;
         }
+
+        public void AddServiceOrder(ServiceOrder serviceOrder)
+        {
+            _serviceOrders.Add(serviceOrder);
+        }
     }
 }

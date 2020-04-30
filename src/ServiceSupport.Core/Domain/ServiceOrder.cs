@@ -26,6 +26,13 @@ namespace ServiceSupport.Core.Domain
             Status = ServiceOrderStatuses.Started;
             Created = DateTime.UtcNow;
         }
+        public ServiceOrder(Guid serviceOrderId, Person personOrdering)
+        {
+            Id = serviceOrderId;
+            SetPersonOrdering(personOrdering);
+            Status = ServiceOrderStatuses.AutomaticGenerated;
+            Created = DateTime.UtcNow;
+        }
         public void SetPersonOrdering(Person person)
         {
             if (person == null)
@@ -47,11 +54,16 @@ namespace ServiceSupport.Core.Domain
 
             Serviceman = person;
             Updated = DateTime.UtcNow;
+            Status = ServiceOrderStatuses.InProgress;
         }
-        public void AddServiceOrderDescription(string content, string title, Person person)
+        public void AddServiceOrderDescription(string title, string content, Person person,string isFinished)
         {
-            _serviceOrderDescriptions.Add(new ServiceOrderDescription(content, title, person));
+            bool finished = false;
+            bool.TryParse(isFinished, out finished);
+            _serviceOrderDescriptions.Add(new ServiceOrderDescription(title, content, person));
             Updated = DateTime.UtcNow;
+            if (finished) Status = ServiceOrderStatuses.Finished; 
+            else Status = ServiceOrderStatuses.InProgress;
         }
     }
 }

@@ -35,13 +35,13 @@ namespace ServiceSupport.Api.Framework
             var exceptionType = exception.GetType();
             switch(exception)
             {
-                case Exception e when exceptionType == typeof(UnauthorizedAccessException):
+                case Exception _ when exceptionType == typeof(UnauthorizedAccessException):
                     statusCode = HttpStatusCode.Unauthorized;
                     break;
-                case ServiceException e when exceptionType == typeof(ServiceException):
+                case ServiceException _ when exceptionType == typeof(ServiceException):
                     statusCode = HttpStatusCode.BadRequest;
                     break;    
-                case Exception e when exceptionType == typeof(Exception):
+                case Exception _ when exceptionType == typeof(Exception):
                     statusCode = HttpStatusCode.InternalServerError;
                     break;                       
             }

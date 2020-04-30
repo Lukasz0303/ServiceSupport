@@ -20,6 +20,8 @@ namespace ServiceSupport.Core.Exceptions
         public static string InvalidPerson => "invalid_person";
 
         public static string InvalidAddress => "invalid_address";
+
+        public static string InvalidShopTime => "invalid_shopTime";
         public static string InvalidSID => "invalid_SID";
 
         public static string InvalidPhone => "invalid_hone";
