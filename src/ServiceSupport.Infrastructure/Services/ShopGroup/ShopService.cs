@@ -19,19 +19,19 @@ namespace ServiceSupport.Infrastructure.Services.ShopGroup
             _shopRepository = shopRepository;
             _mapper = mapper;
         }
-        async Task<ShopDto> IShopService.GetAsync(Guid id)
+        public async Task<ShopDto> GetAsync(Guid id)
         {
             var shop = await _shopRepository.GetAsync(id);
 
             return _mapper.Map<Shop, ShopDto>(shop);
         }
 
-        async Task IShopService.AddShopTime(Guid id, DayOfWeek day, string startTime, string endTime)
+        public async Task AddShopTime(Guid id, DayOfWeek day, string startTime, string endTime)
         {
             await _shopRepository.AddShopTime(id, day, startTime, endTime);
         }
 
-        async Task<IEnumerable<ShopDto>> IShopService.GetAllAsync()
+        public async Task<IEnumerable<ShopDto>> GetAllAsync()
         {
             var shops = await _shopRepository.GetAllAsync();
 
