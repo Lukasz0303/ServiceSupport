@@ -11,7 +11,7 @@ namespace ServiceSupport.Core.Domain
     {
         private static readonly Regex SerialNumberRegex = new Regex("^[0-9a-f]+$");
 
-        private ISet<ServiceOrder> _serviceOrders = new HashSet<ServiceOrder>();
+        private readonly ISet<ServiceOrder> _serviceOrders = new HashSet<ServiceOrder>();
         public IEnumerable<ServiceOrder> ServiceOrders => _serviceOrders;
         public Guid Id { get; protected set; }
         public string SerialNumber { get; protected set; } // szesnastkowy
@@ -56,13 +56,8 @@ namespace ServiceSupport.Core.Domain
 
         public void SetShop(Shop shop)
         {
-            if (shop==null)
-            {
-                throw new DomainException(ErrorCodes.InvalidSerialNumber,
+            Shop = shop ?? throw new DomainException(ErrorCodes.InvalidSerialNumber,
                     "Shop is null.");
-            }
-
-            Shop = shop;
             Updated = DateTime.UtcNow;
         }
         public void AddServiceOrder(Guid serviceOrderId, Person personOrdering, Person serviceman)

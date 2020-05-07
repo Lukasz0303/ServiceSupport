@@ -22,7 +22,7 @@ namespace ServiceSupport.Api.Controllers
         public async Task<IActionResult> Get(Guid id)
         {
             var device = await _deviceService.GetAsync(id);
-            if (device== null)
+            if (device == null)
             {
                 return NotFound();
             }

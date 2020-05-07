@@ -40,7 +40,7 @@ namespace ServiceSupport.Tests.EndToEnd.Controllers
             response.Headers.Location.ToString().ShouldBeEquivalentTo($"users/{command.Email}");
 
             var user = await GetUserAsync(command.Email);
-            user.Email.ShouldBeEquivalentTo(command.Email);
+            user.Person.Email.ShouldBeEquivalentTo(command.Email);
         }
 
         [Fact]

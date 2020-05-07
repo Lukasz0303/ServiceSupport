@@ -48,6 +48,10 @@ namespace ServiceSupport.Api.Controllers
             {
                 return NotFound();
             }
+            if (ServiceOrder.Count() == 0)
+            {
+                return NotFound();
+            }
 
             return Json(ServiceOrder);
         }
@@ -57,6 +61,10 @@ namespace ServiceSupport.Api.Controllers
         {
             var ServiceOrder = await _serviceOrderService.GetAsyncServiceman(email);
             if (ServiceOrder == null)
+            {
+                return NotFound();
+            }
+            if (ServiceOrder.Count() == 0)
             {
                 return NotFound();
             }

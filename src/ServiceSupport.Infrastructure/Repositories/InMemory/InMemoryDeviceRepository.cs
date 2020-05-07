@@ -19,7 +19,7 @@ namespace ServiceSupport.Infrastructure.Repositories.InMemory
             => await Task.FromResult(_devices.SingleOrDefault(x => x.Id == id));
 
         public async Task<Device> GetAsync(string serialNumber)
-            => await Task.FromResult(_devices.SingleOrDefault(x => x.SerialNumber == serialNumber.ToLowerInvariant()));
+            => await Task.FromResult(_devices.SingleOrDefault(x => x.SerialNumber.ToLowerInvariant() == serialNumber.ToLowerInvariant()));
 
         public async Task<IEnumerable<Device>> GetAllInactiveAsync(int minutes)
             => await Task.FromResult(_devices.Where(x => x.LastSignalLife>DateTime.Now.AddMinutes(-minutes)));
