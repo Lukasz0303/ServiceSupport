@@ -2,11 +2,13 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using ServiceSupport.Infrastructure.Commands;
+using ServiceSupport.Infrastructure.Commands.Shops;
 using ServiceSupport.Infrastructure.CQRS.Shops;
 using ServiceSupport.Infrastructure.Services.ShopGroup;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ServiceSupport.Api.Controllers
@@ -14,12 +16,9 @@ namespace ServiceSupport.Api.Controllers
     public class ShopsController : ApiControllerBase
     {
         private readonly IMediator _mediator;
-        private readonly IShopService _shopService;
-
-        public ShopsController(IShopService shopService,
-            ICommandDispatcher commandDispatcher,IMediator mediator) : base(commandDispatcher)
+ 
+        public ShopsController(ICommandDispatcher commandDispatcher,IMediator mediator) : base(commandDispatcher)
         {
-            _shopService = shopService;
             _mediator = mediator;
         }
 
@@ -34,6 +33,16 @@ namespace ServiceSupport.Api.Controllers
         {
             var shops = await _mediator.Send(new GetShopsQuery());
             return Ok(shops);
+        }
+
+        [HttpPost]
+        [ProducesResponseType((int)HttpStatusCode.Created)]
+        public async Task<IActionResult> AddShop([FromBody]CreateShop command)
+        {
+            var createShopCommand = new CreateShopCommand(command);
+            await _mediator.Send(createShopCommand);
+
+            return Created($"shops/{createShopCommand.Id}", null);
         }
     }
 }

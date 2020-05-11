@@ -11,7 +11,7 @@ namespace ServiceSupport.Infrastructure.CQRS.Shops
 {
     public class GetShopsQueryHandler : IQueryHandler<GetShopsQuery, IEnumerable<ShopDto>>
     {
-        IShopService _shopService;
+        readonly IShopService _shopService;
         public GetShopsQueryHandler(IShopService shopService)
         {
             _shopService = shopService;

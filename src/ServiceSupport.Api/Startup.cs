@@ -49,7 +49,6 @@ namespace ServiceSupport.Api
             builder.Populate(services);
             builder.RegisterModule(new ContainerModule(Configuration));
             ApplicationContainer = builder.Build();
-            CompositionRoot.SetContainer(ApplicationContainer);
 
             services.Configure<JwtSettings>(Configuration.GetSection("jwt"));
 

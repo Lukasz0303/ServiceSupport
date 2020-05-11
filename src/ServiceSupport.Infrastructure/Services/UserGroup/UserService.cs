@@ -67,7 +67,7 @@ namespace ServiceSupport.Infrastructure.Services.UserGroup
             var user = await _userRepository.GetAsync(email);
             if(user != null)
             {
-                throw new ServiceException(ErrorCodes.EmailInUse, 
+                throw new ServiceException(ErrorCodes.ShopExist, 
                     $"User with email: '{email}' already exists.");
             }
 
