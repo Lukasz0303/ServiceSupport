@@ -1,20 +1,20 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
     <AssemblyName>ServiceSupport.Tests.EndToEnd</AssemblyName>
     <PackageId>ServiceSupport.Tests.EndToEnd</PackageId>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
-    <RuntimeFrameworkVersion>1.1.1</RuntimeFrameworkVersion>
+    <RuntimeFrameworkVersion>2.1.0</RuntimeFrameworkVersion>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="../../src/ServiceSupport.Api/ServiceSupport.Api.csproj" />
     <ProjectReference Include="../../src/ServiceSupport.Infrastructure/ServiceSupport.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\ServiceSupport.Api\ServiceSupport.Api.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="4.5.0" />
+    <PackageReference Include="Autofac" Version="5.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="1.1.1" /> 
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="1.1.2" /> 
     <PackageReference Include="Moq" Version="4.8.0" />

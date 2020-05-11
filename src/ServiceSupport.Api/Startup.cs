@@ -1,26 +1,23 @@
-using System;
+﻿using System;
 using System.Text;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using NLog.Extensions.Logging;
-using NLog.Web;
-using ServiceSupport.Api.Framework;
-using ServiceSupport.Core.Repositories;
-using ServiceSupport.Infrastructure.EF;
 using ServiceSupport.Infrastructure.IoC;
-using ServiceSupport.Infrastructure.IoC.Modules;
-using ServiceSupport.Infrastructure.Mappers;
-using ServiceSupport.Infrastructure.Repositories;
 using ServiceSupport.Infrastructure.Services;
 using ServiceSupport.Infrastructure.Settings;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using ServiceSupport.Infrastructure.CQRS;
+using Microsoft.AspNetCore.SignalR;
+using ServiceSupport.Infrastructure.CQRS.Shops;
 
 namespace ServiceSupport.Api
 {
@@ -38,50 +35,58 @@ namespace ServiceSupport.Api
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
         }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
             services.AddAuthorization(x => x.AddPolicy("admin", p => p.RequireRole("admin")));
             services.AddMemoryCache();
             services.AddMvc()
                     .AddJsonOptions(x => x.SerializerSettings.Formatting = Formatting.Indented);
-            
+
+            services.AddMediatR(typeof(Startup));
+            services.AddMediatR(typeof(GetShopsQueryHandler).Assembly);
+
             var builder = new ContainerBuilder();
             builder.Populate(services);
             builder.RegisterModule(new ContainerModule(Configuration));
             ApplicationContainer = builder.Build();
+            CompositionRoot.SetContainer(ApplicationContainer);
 
-            return new AutofacServiceProvider(ApplicationContainer);
-        }
+            services.Configure<JwtSettings>(Configuration.GetSection("jwt"));
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
-            ILoggerFactory loggerFactory, IApplicationLifetime appLifetime)
-        {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            // loggerFactory.AddDebug();
-            loggerFactory.AddNLog();
-            app.AddNLogWeb();
-            env.ConfigureNLog("nlog.config");
-            var jwtSettings = app.ApplicationServices.GetService<JwtSettings>();
-            app.UseJwtBearerAuthentication(new JwtBearerOptions
+            var provider = services.BuildServiceProvider();
+
+            var jwtSettings = provider.GetService<JwtSettings>();
+
+            services.AddAuthentication(options =>
             {
-                AutomaticAuthenticate = true,
-                TokenValidationParameters = new TokenValidationParameters
+                options.DefaultScheme = IdentityConstants.ApplicationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+
+                options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidIssuer = jwtSettings.Issuer,
                     ValidateAudience = false,
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings.Key)),
-                }
+                };
             });
+
+            return new AutofacServiceProvider(ApplicationContainer);
+        }
+
+        public void Configure(IApplicationBuilder app, IApplicationLifetime appLifetime)
+        {
+            var jwtSettings = app.ApplicationServices.GetService<JwtSettings>();
+
+            app.UseAuthentication();
+
             if (jwtSettings.SeedData)
             {
                 SeedData(app);
             }
 
-                app.UseExceptionHandler();
+            app.UseExceptionHandler("/Error");
             app.UseMvc();
             appLifetime.ApplicationStopped.Register(() => ApplicationContainer.Dispose());
         }

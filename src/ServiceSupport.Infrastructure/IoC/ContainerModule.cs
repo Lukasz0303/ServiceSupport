@@ -1,5 +1,6 @@
 using Autofac;
 using Microsoft.Extensions.Configuration;
+using ServiceSupport.Infrastructure.CQRS;
 using ServiceSupport.Infrastructure.IoC.Modules;
 using ServiceSupport.Infrastructure.Mappers;
 

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using NLog;
 using ServiceSupport.Core.Domain;
 using ServiceSupport.Core.Repositories;
@@ -95,12 +96,12 @@ namespace ServiceSupport.Infrastructure.Services
 
             foreach (var serviceOrder in serviceOrders)
             {
-                _serviceOrderRepository.AddAsync(serviceOrder);
+                await _serviceOrderRepository.AddAsync(serviceOrder).ConfigureAwait(false);
             }
 
             foreach (var device in devices)
             {
-                _deviceRepository.AddAsync(device);
+                await _deviceRepository.AddAsync(device);
             }
 
             Logger.Info("Add serviceOrders with ServiceOrderDescriptions");
@@ -108,7 +109,7 @@ namespace ServiceSupport.Infrastructure.Services
             foreach (var device in await _deviceRepository.GetAllAsync())
             {
                 _shopRepository.AddAsync(device.Shop);
-                _shopRepository.AddShopTime(device.Shop.Id,DayOfWeek.Monday, "10:00", "18:00");
+                _shopRepository.AddShopTime(device.Shop.Id, DayOfWeek.Monday, "10:00", "18:00");
                 _shopRepository.AddShopTime(device.Shop.Id, DayOfWeek.Tuesday, "10:00", "18:00");
                 _shopRepository.AddShopTime(device.Shop.Id, DayOfWeek.Wednesday, "10:00", "18:00");
                 _shopRepository.AddShopTime(device.Shop.Id, DayOfWeek.Thursday, "10:00", "18:00");
